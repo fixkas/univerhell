@@ -168,6 +168,66 @@ void CreateAccount(vector<Account>& Accounts) {
   cin.get();
 }
 
+void ShowAccount(const vector<Account>& Accounts) {
+  system("clear");
+
+  cin.get();
+
+  int number;
+  cout << "enter account number: ";
+  cin >> number;
+
+  if (FindAccount(Accounts, number) == -1) {
+    cout << "There is no bank account with this number. press enter to continue...";
+    cin.get();
+    cin.get();
+    return;
+  } else {
+    header();
+
+    for (const auto& acc : Accounts) {
+      if (acc.getAccount() == number){
+        cout << left
+          << setw(20) << acc.getAccount()
+          << setw(20) << acc.getfirstname()
+          << setw(20) << acc.getlastname()
+          << setw(20) << acc.getbalance()
+          << endl;
+
+        break;
+      }
+    }
+    cout << "\nPress Enter to continue...";
+
+    cin.get();
+    cin.get();
+  }
+}
+
+void listAccounts(const vector<Account>& Accounts) {
+  system("clear");
+
+  cin.get();
+  if (Accounts.empty()) {
+    cout << "There are no bank accounts yet!" << endl;
+    cin.get();
+    return;
+  }
+
+  header();
+  for (const auto& acc : Accounts) {
+    cout << left
+      << setw(20) << acc.getAccount()
+      << setw(20) << acc.getfirstname()
+      << setw(20) << acc.getlastname()
+      << setw(20) << acc.getbalance()
+      << endl;
+  }
+
+  cout << "\n\npress enter to quit list accounts...";
+  cin.get();
+}
+
 int main() { 
   vector<Account> Accounts;
   readFile(Accounts);
@@ -180,10 +240,10 @@ int main() {
         CreateAccount(Accounts);
         break;
       case 2: 
-        // ShowAccount(Accounts);
+        ShowAccount(Accounts);
         break;
       case 3: 
-        // listAccounts(Accounts);
+        listAccounts(Accounts);
         break;
       case 4: 
         // Deposit(Accounts);
