@@ -228,6 +228,80 @@ void listAccounts(const vector<Account>& Accounts) {
   cin.get();
 }
 
+void Deposit(vector<Account>& Accounts) {
+  system("clear");
+  cin.get();
+
+  int number;
+
+  cout << "enter bank account number: ";
+  cin >> number;
+
+  if (FindAccount(Accounts, number) == -1) {
+    cout << "There is no bank account with this number!";
+    cin.get();
+    cin.get();
+    return;
+  }
+
+  long long amount;
+
+  cout << "enter amount that you want to add:";
+  cin >> amount;
+
+  cin.get();
+
+  for(auto& acc : Accounts) {
+    if (acc.getAccount() == number) {
+      if (acc.credit(amount)) {
+        writeFile(Accounts);
+      }else {
+        cout << "\n press enter to continue...";
+        cin.get();
+      }
+      break;
+    }
+  }
+}
+
+void Withdraw(vector<Account>& Accounts) {
+  system("clear");
+  cin.get();
+
+  int number;
+
+  cout << "enter bank account number: ";
+  cin >> number;
+
+  if (FindAccount(Accounts, number) == -1) {
+    cout << "There is no bank account with this number!";
+    cin.get();
+    cin.get();
+    return;
+  }
+
+  long long amount;
+
+  cout << "Enter amount to withdraw: ";
+  cin >> amount;
+
+  cin.get();
+
+  for (auto& acc : Accounts) {
+    if (acc.getAccount() == number) {
+
+      if (acc.debit(amount)) {
+        writeFile(Accounts);
+      } else {
+        cout << "\nPress Enter to continue...";
+        cin.get();
+      }
+
+      break;
+    }
+  }
+}
+
 int main() { 
   vector<Account> Accounts;
   readFile(Accounts);
@@ -246,10 +320,10 @@ int main() {
         listAccounts(Accounts);
         break;
       case 4: 
-        // Deposit(Accounts);
+        Deposit(Accounts);
         break;
       case 5: 
-        // Withdraw(Accounts);
+        Withdraw(Accounts);
         break;
       case 6: 
         exit(0);
